@@ -60,3 +60,10 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Meeting {
+    id            String    @id @default(cuid())
+    date          DateTime  @default(now())
+    location      String
+    slidesUrl     String?
+}
