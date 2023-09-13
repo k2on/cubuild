@@ -24,6 +24,16 @@ export const exampleRouter = createTRPCRouter({
   }),
 
   getNextMeeting: publicProcedure.query(({ ctx }) => {
-      return ctx.prisma.meeting.findFirst({ orderBy: { date: 'desc' } });
+      const now = new Date();
+      return ctx.prisma.meeting.findFirst({
+          where: {
+              date: {
+                  gte: now
+              }
+          },
+          orderBy: {
+              date: 'desc'
+          }
+      });
   }),
 });
