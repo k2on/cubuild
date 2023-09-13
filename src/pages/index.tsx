@@ -42,19 +42,22 @@ function AuthShowcase() {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {meeting ?
         meeting.slidesUrl ? (
-          <a target="_blank" href={meeting.slidesUrl}>
-              <button
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-              >
-                {"Slides"}
-              </button>
-          </a>
+          <>
+              <a target="_blank" href={meeting.slidesUrl}>
+                  <button
+                    className="rounded-full bg-orange-600 px-10 py-3 font-semibold text-white no-underline transition hover:bg-orange-500"
+                  >
+                    {"Slides"}
+                  </button>
+              </a>
+              <br />
+          </>
         )
         : null
         : null}
+        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
       </p>
       <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
