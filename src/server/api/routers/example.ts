@@ -1,3 +1,5 @@
+import { Overwrite, Simplify } from "@trpc/server";
+import { ResolveOptions } from "@trpc/server/dist/core/internals/utils";
 import { z } from "zod";
 
 import {
@@ -26,6 +28,10 @@ export const exampleRouter = createTRPCRouter({
   getNextMeeting: publicProcedure.query(({ ctx }) => {
       const now = new Date();
       return ctx.prisma.meeting.findFirst({
+          select: {
+              date: true,
+              location: true,
+          },
           where: {
               date: {
                   gte: now
@@ -36,4 +42,21 @@ export const exampleRouter = createTRPCRouter({
           }
       });
   }),
+
+  getNextMeetingLink: protectedProcedure.query(({ ctx }) => {
+      const now = new Date();
+      return ctx.prisma.meeting.findFirst({
+          select: {
+              slidesUrl: true
+          },
+          where: {
+              date: {
+                  gte: now
+              }
+          },
+          orderBy: {
+              date: 'desc'
+          }
+      });
+  })
 });
